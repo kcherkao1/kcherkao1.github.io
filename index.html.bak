@@ -76,7 +76,7 @@
 
         <div class="box">
             <span>2+</span>
-            <h3>months of experience</h3>
+            <h3>years of experience</h3>
         </div>
 
         <div class="box">
@@ -86,7 +86,7 @@
 
         <!-- <div class="box">
             <span>430+</span>
-            <h3>clients</h3>
+            <h3>happy clients</h3>
         </div> -->
 
         <div class="box">
@@ -203,7 +203,7 @@
 
     </div>
 
-    <form onsubmit="sendEmail(); reset(); return false;">
+    <form action="" onsubmit="sendEmail(); reset(); return false;">
         <input type="text" placeholder="name" class="box" id="name">
         <input type="email" placeholder="email" class="box" id="email">
         <input type="text" placeholder="project" class="box" id="project">
@@ -215,6 +215,15 @@
 
 </section>
 
+<!-- contact section ends -->
+
+
+<!-- scroll top button  -->
+
+<a href="#home" class="top">
+    <img src="images/scroll-top-img.png" alt="">
+</a>
+
 <!-- jquery cdn link  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -223,46 +232,42 @@
 
 <script>
     function sendEmail() {
-        const apiKey = "068920C9F1AD89AC9AC9DCA11F938AB48E33F08A0E216FB1563605349368AADE0AEAA8700C30E89B1E22FBA64FA12A02";
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const project = document.getElementById("project").value;
-        const message = document.getElementById("message").value;
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const project = document.getElementById("project").value;
+    const message = document.getElementById("message").value;
 
-        const body = `From: ${name} <${email}>\n\nProject: ${project}\n\nMessage:\n${message}`;
-
-        $.ajax({
-            method: "POST",
-            url: "https://api.elasticemail.com/v2/email/send",
-            data: {
-                apikey: apiKey,
-                from: email,
-                fromName: name,
-                to: "kamalcherkaoui.2001@gmail.com",
-                subject: "Contact Form: " + project,
-                bodyText: body
-            },
-            success: function(response) {
-                console.log(response);
-                if (response.success === true) {
-                    alert("Message sent successfully!");
-                } else {
-                    alert("Error sending message: " + response.error);
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error(textStatus, errorThrown);
-                alert("Error sending message!");
+    $.ajax({
+        method: "POST",
+        url: "./send_email.php",
+        data: {
+            name: name,
+            email: email,
+            project: project,
+            message: message
+        },
+        success: function(response) {
+            console.log(response);
+            if (response.success === true) {
+                alert("Message sent successfully!");
+            } else {
+                alert("Error sending message: " + response.error);
             }
-        });
-    }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error(textStatus, errorThrown);
+            alert("Error sending message!");
+        }
+    });
+}
 
-    function reset() {
-        document.getElementById("name").value = "";
-        document.getElementById("email").value = "";
-        document.getElementById("project").value = "";
-        document.getElementById("message").value = "";
-    }
+function reset() {
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("project").value = "";
+    document.getElementById("message").value = "";
+}
+
 </script>
 
 
